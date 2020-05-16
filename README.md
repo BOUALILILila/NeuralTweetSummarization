@@ -1,5 +1,5 @@
 # Neural models for extractive tweet summarization
-This repository contains the code for reproducing the experiments of our CIRLE 2020 paper: Retrospective Tweet Summarization: Investigating NeuralApproaches for Tweet Retrieval.
+This repository contains the code for reproducing the experiments of our CIRLE 2020 paper: "Retrospective Tweet Summarization: Investigating NeuralApproaches for Tweet Retrieval".
 
 ## General pipeline
 ![](images/model.png)
