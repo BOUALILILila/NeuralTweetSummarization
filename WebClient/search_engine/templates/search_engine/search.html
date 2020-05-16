@@ -1,0 +1,204 @@
+{% extends 'base.html' %}
+{% load fontawesome %}
+{% load static %}
+
+{% block content %}
+{% if tweets %}
+<div class='container-fluid py-3' id='container_search'>
+    <div class='row'>
+        <div class='col-xl-3 col-lg-12 col-md-12 col-sm-12 m-3' >
+            <div classe="row w-100 ">
+                <div class='col p-1 ' >
+                    <div class="card statsCard border-0">
+                        <div class="card-body">
+                            <span class="float-right cardFont">{% fontawesome_icon 'download' color='#E9ECEF' large=True %}</span>
+                            <h5 class="card-title">Retrieved from Twitter</h5>
+                            <h6 class="card-subtitle mb-2 text-muted"> {{retrieved}} tweets</h6>
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--
+                 <div class='col p-1' >
+                    <div class="card  statsCard border-0">
+                        <div class="card-body">
+                            <span class="float-right cardFont">{% fontawesome_icon 'filter' color='#E9ECEF' large=True %}</span>
+                            <h5 class="card-title">Trash filtered</h5>
+                            <h6 class="card-subtitle mb-2 text-muted"> {{candidates}} tweets</h6>
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" style="width: {{candidates_stat}}%" aria-valuenow="{{candidates_stat}}" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                -->
+                 <div class='col p-1' >
+                    <div class="card  statsCard border-0">
+                        <div class="card-body">
+                            <span class="float-right cardFont">{% fontawesome_icon 'compress' color='#E9ECEF' large=True %}</span>
+                            <h5 class="card-title">Summary</h5>
+                            <h6 class="card-subtitle mb-2 text-muted"> {{summary}} tweets</h6>
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" style="width: {{summary_stat}}%" aria-valuenow="{{summary_stat}}" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class='col-xl-6 col-lg-12 col-md-12 col-sm-12 m-3' >
+            <div class="card w-100" id="tweets">
+                <ul class="list-group list-group-flush">
+                    {% for tweet in tweets %}
+                        <li class="list-group-item">
+                            <div class='container w-100'>
+                                <div class="row w-100">
+                                    <div class="col-12 ">
+                                        <div class="float-left">
+                                            <img src="{{tweet.user.profile_image_url_https}}" alt="user profile image" class="img-thumbnail rounded-circle">
+                                        </div>
+                                        <a href="https://twitter.com/statuses/{{tweet.id_str}}"  target="_blank" class="float-right link_tweet" >{% fontawesome_icon 'twitter' color='#1DA1F2' large=True %}</a>
+                                        <div class="d-inline">
+                                            <div class="d-block m-1">
+                                                <h5 class="mb-0 ml-2 d-inline">{{tweet.user.name}}</h5>
+                                                <span class="timePub text-muted">. {{tweet.created_at}}</span>
+                                                <a href="https://twitter.com/{{tweet.user.screen_name}}" target="_blank" class="d-block user_name"> @{{tweet.user.screen_name}}</a>
+                                            </div>
+                                        </div>
+                                        <p class="my-2 tweet_text">{{tweet.text}}</p>
+                                        
+                                        <span class="badge badge-light mr-3"> {% fontawesome_icon 'retweet' large=True %} {{tweet.retweet_count}}</span>
+                                        <span class="badge badge-light mr-3"> {% fontawesome_icon 'star' large=True %} {{tweet.score|floatformat:4}}</span>
+                                        <span class="badge badge-light"> {% fontawesome_icon 'tag' large=True %} {{tweet.label}}</span>
+                                        
+                                    </div>
+                                </div>
+                            </div>      
+                        </li>
+                    {% empty %}
+                        <p>No tweets are available.</p>
+                    {% endfor %}
+                </ul>
+            </div>
+
+
+            <div class="pagination">
+                <span class="step-links">
+                    {% if tweets.has_previous %}
+                        <a id='first_page' v=1 href="?page=1">&laquo; first</a>
+                        <a id='prev_page' href="?page={{ tweets.previous_page_number }}">previous</a>
+                    {% endif %}
+
+                    <span class="current">
+                        Page {{ tweets.number }} of {{ tweets.paginator.num_pages }}.
+                    </span>
+
+                    {% if tweets.has_next %}
+                        <a id='next_page' href="?page={{ tweets.next_page_number }}">next</a>
+                        <a id='last_page' href="?page={{ tweets.paginator.num_pages }}">last &raquo;</a>
+                    {% endif %}
+                </span>
+            </div>
+            
+        </div>
+    </div>
+</div>
+{% else %}
+            {% if no_tweet %}
+                <div class='text-center p-2 m-4'>
+                    <img id='error_img' src={% static "media/no_tweet.png" %} class="img-fluid p-2" alt="Responsive image">
+                    <div class='container'>
+                    <div class='row'>
+                        <div class='col-12' >
+                        <div id='error_text'>
+                            <h1> {{error}} </h1>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            {% else %}
+                 <div class='text-center p-2 m-4'>
+                    <img id='error_img' src={% static "media/icons8-serveur-100.png" %} class="img-fluid p-2" alt="Responsive image">
+                    <div class='container'>
+                    <div class='row'>
+                        <div class='col-12' >
+                        <div id='error_text'>
+                            <h1> {{error}} </h1>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            {% endif %}
+{% endif %}
+
+
+
+{% endblock content %}
+<!--
+{% block javascript %}
+  <script>
+  $(function() { 
+      $.ajaxSetup({ 
+     beforeSend: function(xhr, settings) {
+         function getCookie(name) {
+             var cookieValue = null;
+             if (document.cookie && document.cookie != '') {
+                 var cookies = document.cookie.split(';');
+                 for (var i = 0; i < cookies.length; i++) {
+                     var cookie = jQuery.trim(cookies[i]);
+                     // Does this cookie string begin with the name we want?
+                     if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                         cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                         break;
+                     }
+                 }
+             }
+             return cookieValue;
+         }
+         if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
+             // Only send the token to relative URLs i.e. locally.
+             xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+         }
+     } 
+});
+       
+        let a={{all_t}}
+       
+
+        let q="{{placeholder_query}}"
+        let retrieved={{retrieved}}
+        let candidates={{candidates}}
+        let candidates_stat={{candidates_stat}}
+        let summary_stat={{summary_stat}}
+        let summary={{summary}}
+        let page=1
+        console.log(a)
+        $("#next_page").click(function () {   
+             $.ajax({
+                type: 'POST',
+                url: '{% url 'search_engine:search' %}',
+                data: {
+                    't': a,
+                    'page':page,
+                    'q': q,
+                    'retrieved': retrieved,
+                    'candidates': candidates,
+                    'candidates_stat': candidates_stat,
+                    'summary_stat':summary_stat,
+                    'summary':summary,
+                },
+                dataType: 'json',
+                success: function (data) {
+                    $('html').replaceWith(data)
+                }
+            });
+        });
+    });
+  </script>
+
+{% endblock %}
+-->

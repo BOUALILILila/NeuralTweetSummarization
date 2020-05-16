@@ -1,0 +1,8 @@
+
+{
+    "embed":true,
+    "num_blocks":2,
+    "kernel_count":[16,32],
+    "kernel_size":[[4,4],[4,4]],
+    "dpool_size":[3,10]
+}

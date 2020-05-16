@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+{% load fontawesome %}
+<head>
+  <meta charset="utf-8">
+  <title> Tweet Summarization</title>
+  <meta name="author" content="Lila BOUALILI">
+  <meta name="description" content="Tweet Summarization proto">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+  <!--Links-->
+  {% load static %}
+  <link rel="icon" href="{% static 'media/favicon.ico' %}" type="image/x-icon"/>
+  <!-- Bootstrap CSS  CDN -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" 
+        crossorigin="anonymous">
+  <!--Custom styles-->
+  <link rel="stylesheet" type="text/css" href="{% static 'styles/style.css' %}">
+  <!--Links-->
+  {% load bootstrap4 %}          {# Embed Bootstrap CSS #}
+  {% bootstrap_javascript jquery='full' %} 
+  {% fontawesome_stylesheet %}
+  {{ form.media }}
+</head>
+
+<body>
+  
+  <nav class="navbar navbar-expand-lg navbar-light shadow sticky-top py-2 d-flex navCustom bg-ligh">
+    <div class='container my-1 d-flex justify-content-center'>
+      <div class="row d-flex justify-content-center">
+        <div class="col-xl-6 col-md-11 col-xs-11">
+     
+          <form class="form-inline d-flex justify-content-center" action="{% url 'search_engine:search' %}" method="post" id='summarize_form'>
+            {% csrf_token %}
+            <div class="row clearfix py-1 my-0 search_form">
+              <div class="col-lg-5 col-md-12 col-sm-12 form-group py-1 my-0 d-flex justify-content-center">
+                {% fontawesome_icon 'search' color='#868E96' %}
+                 <input class="form-control col-10  border-0 input" 
+                  type="search" 
+                  placeholder="Search"
+                  {% if placeholder_query %}
+                  value="{{placeholder_query}}"
+                  {% endif %}
+                  aria-label="Search"
+                  id='query_search'
+                  name='search' required>
+              </div>
+              <div class="col-lg-4 col-md-12 col-sm-12 form-group py-1 my-0 d-flex justify-content-center">
+                {% fontawesome_icon 'calendar' color='#868E96' %}
+                {{form}}
+              </div>
+              <div class="col-lg-3 col-md-12 d-flex justify-content-center div_summarize">
+                  <button class="btn btn-primary col-12" id="summarize" type="submit" >
+                    Summarize
+                  </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    
+  </nav> 
+
+  <div id='content'>
+    {% block content%} 
+    <img id='placeholder-img' src="{% static 'media/black_twitter.jpg' %}" class="img-fluid" alt="Responsive image">
+    <div class='container'>
+      <div class='row'>
+        <div class='col-12' >
+          <div id='placeholder'>
+            <h1> See what happend on Twitter Last week </h1>
+            <h3> Choose your start day and summarize tweets around the subject you want </h3>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endblock %}
+  </div>
+  <div class='container text-center' id="Description-container">
+      <div class="row" id='Description-title'>
+        <div class="col-12 text-center ">
+         <h1>Tweet Summarization Engine!</h1>
+         <h3>Get efficiently the information you need</h3>
+        </div>
+      </div>
+      <div class="row">
+          <div class="col-lg-6 px-5">
+            <div class="rounded-circle bg-primary-light">
+              {% fontawesome_icon 'bolt' large=True %}
+            </div>
+            <h2 class='my-3'>Relevant tweets</h2>
+            <p> Tweet Summarization Engine selects only the most relevant tweets to your search query. 
+                No more searching for your topic of interest among a ton of others that do not interest you.</p>
+         </div><!-- /.col-lg-4 -->
+         <div class="col-lg-6 px-5">
+            <div class="rounded-circle bg-primary-light">
+              {% fontawesome_icon 'copy ' large=True %}
+            </div>
+             <h2 class='my-3'>No Redundancy</h2>
+            <p>Tweet Summarization selects novel tweets and remove all redudant ones. 
+                No more reading the same information in dozens of duplicated tweets.</p>
+          </div><!-- /.col-lg-4 -->
+        </div><!-- /.row -->
+  </div>
+  <!--Footer-->
+  <footer class="page-footer font-small " id='footer-container'>
+    <!-- Footer Links -->
+    <div class="container-fluid text-center  footer-links text-md-left">
+
+      <!-- Grid row -->
+      <div class="row">
+
+        <!-- Grid column -->
+        <div class="col-md-6 col-sm-12 mt-md-0 mt-3">
+
+          <!-- Content -->
+          <h5 class="text-uppercase">Tweet Sumarization Project</h5>
+          <p> Project developped by Lila BOUALILI in the context of her last year project at the Highest National School of Computer Science of Algiers (ESI ex. INI). 
+          Project proposed by Pr. Mohand BOUGHANEM of IRIT-University of Paul Sabatier, Toulouse. 
+          Supervised by Pr. M.BOUGHANEM (IRIT) & Dr.L SAID LHADJ (ESI).
+          </p>
+
+        </div>
+        <!-- Grid column -->
+
+        <hr class="clearfix w-100 d-md-none pb-3">
+
+        <!-- Grid column -->
+        <div class="col-md-3 colsm-0 mb-md-0 mb-3">
+        </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-md-3 col-sm-12 mb-md-0 mb-3">
+
+            <!-- Links -->
+            <h5 class="text-uppercase">Links</h5>
+
+            <ul class="list-unstyled">
+              <li>
+                <a href="#!">Source code</a>
+              </li>
+              <li>
+                <a href="http://esi.dz/" target="_blank" rel="noopener noreferrer">ESI</a>
+              </li>
+              <li>
+                <a href="https://www.irit.fr/" target="_blank" rel="noopener noreferrer">IRIT</a>
+              </li>
+            </ul>
+
+          </div>
+          <!-- Grid column -->
+
+      </div>
+      <!-- Grid row -->
+
+    </div>
+    <!-- Footer Links -->
+
+    <!-- Copyright -->
+    <div class="footer-copyright text-center py-3">© 2018 Copyright
+    <!--
+      <a href="https://aach/"> qqch.com</a>
+    -->
+    </div>
+    <!-- Copyright -->
+
+  </footer>
+  <!-- Footer -->
+
+  <div class="spinner-border text-dark d-none" role="status">
+          <span class="sr-only">Loading...</span>
+  </div>
+
+  <!--Scripts-->
+  <!-- jQuery CDN -->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  <!-- Popper CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" 
+          integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" 
+          crossorigin="anonymous"></script>
+  <!-- jQuery local fallback -->
+  <script>window.jQuery || document.write('<script src="{% static 'scripts/jquery.min.js' %}"><\/script>')</script>  
+  <!-- Bootstrap JS  CDN -->
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" 
+          integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" 
+          crossorigin="anonymous"></script>
+  <!-- Bootstrap JS local fallback -->
+  <script>window.jQuery.fn.modal || document.write('<script src="{% static 'scripts/bootstrap.min.js' %}"><\/script>')</script>
+  <!-- Bootstrap CSS local fallback -->
+  <div id="bootstrapCssTest" class="hidden"></div>
+  <script>
+    $(function() {
+      if ($('#bootstrapCssTest').is(':visible')) {
+        $("head").prepend('<link rel="stylesheet" href="{% static 'styles/bootstrap.min.css' %}">');
+      }
+    });
+
+  </script>
+  <script src="{% static 'scripts/linkify.min.js' %}"></script>
+  <script src="{% static 'scripts/linkify-jquery.min.js' %}"></script> 
+  <script src="{% static 'scripts/blockui.js' %}"></script> 
+  <script>
+  $(function() { 
+    $('p.tweet_text').linkify({
+        target: "_blank"
+      });
+    $('#summarize_form').on('submit', function() {
+      $.blockUI({
+        message: ' <div class="spinner-border text-primary m-3" id="spinner" role="status"><span class="sr-only">Loading...</span></div>',
+        css: { backgroundColor: 'inherite', border:'0px'} 
+      });
+    });
+  });
+  </script>
+  {% block javascript %}
+  {% endblock %}
+  <!--Scripts-->
+</body>
+
+</html>
