@@ -11,7 +11,7 @@ import dateutil.parser
 tokenizer = RegexpTokenizer(r'\w+')
 
 EMBED_DIM=300 
-EMBED_PATH='/projets/iris/PROJETS/lboualil/CORPUS/embeddings/full/fasttext/CBOW/vectors.txt'
+EMBED_PATH='/data/CORPUS/embeddings/full/fasttext/CBOW/vectors.txt'
 
 def get_sentence_vector(sent,model):
     sent_vec =[]

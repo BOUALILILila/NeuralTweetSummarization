@@ -5,7 +5,7 @@ import os
 import keras
 import pandas as pd
 
-def load_data(stage: str = 'train', task: str = 'ranking',path='/projets/iris/PROJETS/lboualil/CORPUS/tweets/train_data_2016_new.csv'
+def load_data(stage: str = 'train', task: str = 'ranking',path='/data/CORPUS/tweets/train_data_2016_new.csv'
               ) -> typing.Union[mz.DataPack, tuple]:
     """
     Load data.

@@ -10,8 +10,8 @@ from nltk.tokenize import RegexpTokenizer
 #
 ##if save tweets per hour
 #
-files = glob.glob('/projets/iris/PROJETS/lboualil/statuses/statuses_2017/statuses.log.2017-*.gz')
-with open('/projets/iris/PROJETS/lboualil/CORPUS/relation/relation_2017_nist.json') as rel:
+files = glob.glob('/data/statuses/statuses_2017/statuses.log.2017-*.gz')
+with open('/data/CORPUS/relation/relation_2017_nist.json') as rel:
     evaluated_tweets=json.load(rel)
 evaluated_tweet_ids=[tweet['tweetid'] for tweet in evaluated_tweets]
 evaluated_tweet_ids=set(evaluated_tweet_ids)
@@ -56,7 +56,7 @@ for hour_tweets in files:
                 except ValueError as vexc:
                     print('not tweet json... moving next')
             #
-        with open(f'/projets/iris/PROJETS/lboualil/CORPUS/tweets/tweets_2017/{w[7]}.json', 'w') as outfile:
+        with open(f'/data/CORPUS/tweets/tweets_2017/{w[7]}.json', 'w') as outfile:
                 json.dump(hour_processed_tweets, outfile)
         right_data+=hour_processed_tweets
         #
@@ -64,5 +64,5 @@ for hour_tweets in files:
         if exc.errno != errno.EISDIR:
             print("Error with data files")
 
-with open('/projets/iris/PROJETS/lboualil/CORPUS/right/right_2017_nist.json', 'w') as outfile:
+with open('/data/CORPUS/right/right_2017_nist.json', 'w') as outfile:
     json.dump(right_data, outfile)

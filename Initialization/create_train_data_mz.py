@@ -1,11 +1,11 @@
 import json
 import pandas as pd
 
-with open('/projets/iris/PROJETS/lboualil/CORPUS/left/left_2016.json') as f:
+with open('/data/CORPUS/left/left_2016.json') as f:
     left = json.load(f)
-with open('/projets/iris/PROJETS/lboualil/CORPUS/right/right_2015.json') as f:
+with open('/data/CORPUS/right/right_2015.json') as f:
     right = json.load(f)
-with open('/projets/iris/PROJETS/lboualil/CORPUS/relation/relation_2015.json') as f:
+with open('/data/CORPUS/relation/relation_2015.json') as f:
     relation = json.load(f)
 
 left=pd.DataFrame.from_dict(left)
@@ -30,4 +30,4 @@ for rel in relation:
                }]
 dataset=pd.DataFrame.from_dict(rows)
 dataset.head()
-dataset.to_csv("/projets/iris/PROJETS/lboualil/CORPUS/tweets/train_data_2015.csv")
+dataset.to_csv("/data/CORPUS/tweets/train_data_2015.csv")

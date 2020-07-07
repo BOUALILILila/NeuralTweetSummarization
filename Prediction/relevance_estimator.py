@@ -7,20 +7,16 @@ from nltk.tokenize import RegexpTokenizer
 def predict_similarity_scores(processed_tweets,n_top):
     tokenizer = RegexpTokenizer(r'\w+')
     
-    pre=mz.engine.base_preprocessor.load_preprocessor('/projets/iris/PROJETS/lboualil/Preprocessors/MatchPy/MatchPy_full_2015-2016_fasttext_CBOW')
-    model=mz.engine.base_model.load_model('/projets/iris/PROJETS/lboualil/Models/MatchPy/MatchPy_full_2015-2016_fasttext_CBOW')
-    '''
+    pre=mz.engine.base_preprocessor.load_preprocessor('/data/Preprocessors/MatchPy/MatchPy_full_2015-2016_fasttext_CBOW')
+    model=mz.engine.base_model.load_model('/data/Models/MatchPy/MatchPy_full_2015-2016_fasttext_CBOW')
 
-    pre=mz.engine.base_preprocessor.load_preprocessor('/home/lila/CORPUS/Preprocessors/MatchPy_cbow')
-    model=mz.engine.base_model.load_model('/home/lila/CORPUS/Models/MatchPy_cbow')
-    '''
     tweets=pd.DataFrame.from_dict(processed_tweets)
     del processed_tweets
     tweets.drop_duplicates('tweetid','first',True)
     tweets.set_index('tweetid',inplace=True)
     #Retrieve topics
     #with open('/home/lila/CORPUS/left/left_2017.json') as f:
-    with open("/projets/iris/PROJETS/lboualil/CORPUS/left/left_2017_nist_evaluated_qrels_real.json") as f:
+    with open("/data/CORPUS/left/left_2017_nist_evaluated_qrels_real.json") as f:
         topics=json.load(f)
     rows=[]                       
     for topic in topics[:]:      

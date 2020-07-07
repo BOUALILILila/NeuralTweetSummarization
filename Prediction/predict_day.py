@@ -34,13 +34,13 @@ if __name__ == "__main__":
         w=day_dir.split('-')
         month=w[1]
         day=w[2]
-        path=f"/projets/iris/PROJETS/lboualil/CORPUS/predictions_2017/MatchPy/MatchPy_fasttext_cbow_2015_2016_rel/predictions_2017-{month}-{day}.csv"
+        path=f"/data/CORPUS/predictions_2017/MatchPy/MatchPy_fasttext_cbow_2015_2016_rel/predictions_2017-{month}-{day}.csv"
         predictions.to_csv(path)
         if predictions is not None:
             summaries=nov_estimator.delete_redudants(predictions)
-            path=f"/projets/iris/PROJETS/lboualil/CORPUS/predictions_2017/MatchPy/MatchPy_fasttext_cbow_2015_2016_rel/summaries_2017-{month}-{day}.csv"
+            path=f"/data/CORPUS/predictions_2017/MatchPy/MatchPy_fasttext_cbow_2015_2016_rel/summaries_2017-{month}-{day}.csv"
             summaries.to_csv(path)
-            trec=open(f"/projets/iris/PROJETS/lboualil/CORPUS/predictions_2017/MatchPy/MatchPy_fasttext_cbow_2015_2016_rel/run_2017-{month}-{day}.run",'w')
+            trec=open(f"/data/CORPUS/predictions_2017/MatchPy/MatchPy_fasttext_cbow_2015_2016_rel/run_2017-{month}-{day}.run",'w')
             for index,row in summaries.iterrows():
                 trec.write(f"2017{month}{day} {index} Q0 {row['id_right']} {row['rank']} {row['score']} matchPyFasttextCBOW_2017\n")
             trec.close()

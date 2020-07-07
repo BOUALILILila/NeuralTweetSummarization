@@ -1,6 +1,6 @@
 import os
 config=1
-base_dir='/projets/iris/PROJETS/lboualil'
+base_dir='/data'
 
 TRAIN_DATA_FOLDER_PATH = '/CORPUS/collection_2018/*.txt'
 TOPICS_FOLDER_PATH='/CORPUS/topics/'

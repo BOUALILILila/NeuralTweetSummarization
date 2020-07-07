@@ -12,7 +12,7 @@ import sys
 #
 year=sys.argv[1]
 tokenizer = RegexpTokenizer(r'\w+')
-files = glob.glob(f'/projets/iris/PROJETS/lboualil/Rawtweets/{year}/raw*.txt')
+files = glob.glob(f'/data/Rawtweets/{year}/raw*.txt')
 print(files)
 right_data=[]
 tweets=[]
@@ -35,14 +35,11 @@ for day_tweets in files:
             if len(stems)>0:
                 day_processed_tweets+=[stems] 
         #
-        #w=day_tweets.split('/')
-        #with open(f'/projets/iris/PROJETS/lboualil/CORPUS/training_data_embeddings/day_processed_tweets/{w[7]}.json', 'w') as outfile:
-        #    json.dump(day_processed_tweets, outfile)
         right_data+=day_processed_tweets
         #
     except IOError as exc:
         if exc.errno != errno.EISDIR:
             print("Error with data files")
 
-with open(f'/projets/iris/PROJETS/lboualil/CORPUS/training_data_embeddings/train_data_{year}.json', 'w') as outfile:
+with open(f'/data/CORPUS/training_data_embeddings/train_data_{year}.json', 'w') as outfile:
     json.dump(right_data, outfile)
